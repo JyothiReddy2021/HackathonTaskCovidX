@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta Name="viewport" Content="Width=device-width, Initial-scale=1.5"/>
+<style>
+canvas 
+{
+    border:"3px solid #ff0000";
+    background-color:#FFFF77;
+}
+</style>
+</head>
+<body onLoad="BeginGame()">
+<script>
+var imagelogo1
+var ImageIcon1;
+var ImageIcon2 ;
+var ImageIcon3;
+var ImageIcon4;
+var ImageIcon6;
+var score=0;
+var msg1="", msg4="";
+var msg2="Hackathon Task - COVIDX" ;
+var msg3="Social Distancing Game";
+function BeginGame() 
+{  
+Imagelogo1 = new Object(80, 80, "logo1.gif", 170, 10, "image");
+   ImageIcon1 = new Object(120, 120, "DistPic1.gif", 350, 320, "image");
+ImageIcon2 = new Object(150, 150, "DistPic2.gif", 15, 100, "image");
+ImageIcon3 = new Object(150, 150, "DistPic3.gif", 830, 100, "image");
+ImageIcon4 = new Object(120, 120, "DistPic4.gif", 10, 320, "image");
+
+    UserPlayArea.start();
+ }
+    var UserPlayArea = {
+    canvas : document.createElement("canvas"),
+    start : function() {
+        this.canvas.width =  1000;
+        this.canvas.height =600;
+        this.context = this.canvas.getContext("2d");
+        document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+        this.frameNo = 0;
+        this.interval = setInterval(UpdatePlayArea, 10);
+        },
+    clear : function() {
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    },
+    stop : function() {
+        clearInterval(this.interval);
+    }
+}
+function Object(width, height, color, x, y, type) {
+    this.type = type;
+    if (type == "image") {
+        this.image = new Image();
+        this.image.src = color;
+    }
+    this.width = width;
+    this.height = height;
+    this.speedX = 0;
+    this.speedY = 0;    
+    this.x = x;
+    this.y = y;  
+    this.update = function() {
+        contextObj = UserPlayArea.context;
+        if (type == "image") {
+            contextObj.drawImage(this.image, 
+                this.x, 
+                this.y,
+                this.width, this.height);
+    
+        } else {
+            contextObj.fillStyle = color;
+            contextObj.fillRect(this.x, this.y, this.width, this.height);
+        }
+    }
+    this.newPos = function() {
+        this.x += this.speedX;
+        this.y += this.speedY;        
+    }
+}
+
+function UpdatePlayArea() {
+    UserPlayArea.clear();
+    
+    ImageIcon1.newPos();
+    ImageIcon1.update();
+    ImageIcon2.update();
+    ImageIcon3.update();
+    ImageIcon4.update();  
+Imagelogo1.update();
+    contextObj.fillStyle="red";
+
+    contextObj.font = "35px 'Lucida Calligraphy'";
+    contextObj.fillText(msg2, 270,40);
+ contextObj.fillStyle="blue";
+    contextObj.font = "30px 'Lucida Calligraphy'";
+    contextObj.fillText(msg3, 320,90);
+    contextObj.fillStyle="#10A320";
+    contextObj.fillText("Your Score is : "+score, 370,150);
+     
+    contextObj.font = "20px 'Lucida Calligraphy'"; 
+    if (score >= 400 ) 
+    { contextObj.fillStyle="#10A320";
+//      contextObj.fillText(" ok", 20,360);       
+              
+      contextObj.fillText("Congratulations! ",450,520);
+      contextObj.fillText("You are Maintaining required Social Distance", 450,550);
+  ImageIcon6 = new Object(150, 150, "CongratsPic6.gif", 250,430, "image");
+  ImageIcon6.update();
+     }
+  else
+  {    contextObj.fillStyle="red";
+       contextObj.fillText("Note: You need to Score atleast 400 to win", 30,500);
+   contextObj.font = "15px 'Lucida Calligraphy'";        
+contextObj.fillStyle="blue";
+     msg1="Click on Arrow buttons Up/Down/Right/Left to Move Image (Person2 Image in proper direction )  to get high score." ; 
+contextObj.fillText(msg1, 5,530);
+ 
+   }       
+}
+function moveup() {
+    ImageIcon1.speedY = -5; 
+    score +=100 ;
+}
+
+function movedown() {
+    ImageIcon1.speedY = 5; 
+    score +=100 ;
+
+}
+
+function moveleft() {
+    ImageIcon1.speedX = -5; 
+   score -=100 ;
+}
+
+function moveright() {
+    ImageIcon1.speedX = 5; 
+    score +=100 ;
+}
+
+function clearmove() {
+    ImageIcon1.speedX = 0; 
+    ImageIcon1.speedY = 0; 
+}
+</script>
+<div style="text-align:center;width:500px; heght=100px">
+  <button onmousedown="moveup()" onmouseup="clearmove()" ontouchstart="moveup()">
+<img src="UpArrow1.gif" width="30" height="30">
+</button><br>
+  <button onmousedown="moveleft()" onmouseup="clearmove()" ontouchstart="moveleft()">
+ <img src="LeftArrow1.gif" width="30" height="30">
+</button>
+  <button onmousedown="moveright()" onmouseup="clearmove()" ontouchstart="moveright()">
+<img src="RightArrow1.gif" width="30" height="30">
+</button><br>
+  <button onmousedown="movedown()" onmouseup="clearmove()" ontouchstart="movedown()">
+<img src="DownArrow1.gif" width="30" height="30">
+</button>
+</div>
+ <p style=color:green>
+ <a href="wel.html"> Happy Learning   </a>
+
+</p>
+ </body>
+</html>
